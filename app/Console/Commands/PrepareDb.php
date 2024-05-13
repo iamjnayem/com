@@ -31,6 +31,8 @@ class PrepareDb extends Command
             if (app()->environment() == "local") {
                 $this->info("preparing...");
                 Artisan::call('migrate:fresh');
+                Artisan::call('db:seed');
+
                 $this->info("prepared db successfully.");
                 
             } else {

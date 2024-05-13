@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Category;
+use App\Repository\CategoryRepository;
+use Exception;
+
+class CategoryService
+{
+    private CategoryRepository $categoryRepository;
+    
+    /**
+     * Create a new class instance.
+     */
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+
+    public function createCategory($request)
+    {
+        try
+        {
+            $data = $request->validated();
+            $data['created_by'] = auth()->user()->id;
+            
+            $newCategory = $this->categoryRepository->createCategory($data);
+
+            if($newCategory == null)
+            {
+                return null;
+            }
+
+            $finalData = [
+                'name' => $newCategory->name
+            ];
+
+            return $finalData;
+
+        }catch(Exception $e)
+        {
+            exception_log("Failed to create category in category service", $e);
+            return null;
+        }
+    }
+
+    public function fetchCategory($request)
+    {
+        try
+        {
+            $categories = $this->categoryRepository->fetchCategory($request);
+            return $categories;
+
+        }catch(Exception $e)
+        {
+            exception_log("Failed to create category in category service", $e);
+            return null;
+        }
+    }
+
+
+    public function editCategory($request)
+    {
+        try
+        {
+            $category = $this->categoryRepository->findOneById($request);
+
+            return $category;
+
+        }catch(Exception $e)
+        {
+            exception_log("Failed to edit category in category service", $e);
+            return null;
+        }
+    }
+
+    
+    public function updateCategory($request)
+    {
+        try
+        {
+            $category = $this->categoryRepository->updateCategory($request);
+            return $category;
+
+        }catch(Exception $e)
+        {
+            exception_log("Failed to edit category in category service", $e);
+            return null;
+        }
+    }
+}

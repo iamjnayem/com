@@ -23,12 +23,12 @@ class UserRepository
     {
         try{
 
-            $user = User::create($userData);
+            $user = $this->user::create($userData);
             return $user;
 
         }catch(Exception $e)
         {
-            error_log("Failed to Insert User", $e);
+            exception_log("Failed to Insert User", $e);
             return null;
         }
     }

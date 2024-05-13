@@ -30,9 +30,9 @@ if(!function_exists('error_response'))
 }
 
 
-if(!function_exists('error_log'))
+if(!function_exists('exception_log'))
 {
-    function error_log($message="", Exception $e)
+    function exception_log(Exception $e, $message="")
     {
         Log::error($message);
         Log::error($e->getMessage() . " at " . $e->getLine() . " at " . $e->getFile());
@@ -41,7 +41,7 @@ if(!function_exists('error_log'))
 
 if(!function_exists('request_log'))
 {
-    function request_log($message="", $input)
+    function request_log($input, $message="")
     {
         Log::info($message . " => " . json_encode($input));
     }
@@ -49,7 +49,7 @@ if(!function_exists('request_log'))
 
 if(!function_exists('response_log'))
 {
-    function response_log($message="", $response)
+    function response_log($response, $message="")
     {
         Log::info($message . " => " . json_encode($response));
     }

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Monolog\Handler\ErrorLogHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Utilities\ActiveInActiveEnum;
 
-class RegisterRequest extends FormRequest
+
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +25,17 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for register", request()->all());
-        
+        request_log("data to validate for category", request()->all());
+
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|alpha_num|min:8|max:50'
+            'name' => 'required|string|max:255|unique:categories,name',
+            'status' => 'required|in:' . ActiveInActiveEnum::ACTIVE . "," . ActiveInActiveEnum::INACTIVE,
+
         ];
     }
 
-    /**
+
+     /**
      * Handle a failed validation attempt.
      *
      * @param Validator $validator
@@ -45,9 +47,7 @@ class RegisterRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from register validation", $finalResponse);
+        response_log("final response from category validation", $finalResponse);
         throw new HttpResponseException(response()->json($finalResponse));
     }
-
-
 }

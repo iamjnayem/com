@@ -3,11 +3,10 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Monolog\Handler\ErrorLogHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +23,15 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for register", request()->all());
-        
+        request_log("data to validate for login", request()->all());
+
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|alpha_num|min:8|max:50'
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required'
         ];
     }
+
+
 
     /**
      * Handle a failed validation attempt.
@@ -45,9 +45,7 @@ class RegisterRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from register validation", $finalResponse);
+        response_log("final response from login validation", $finalResponse);
         throw new HttpResponseException(response()->json($finalResponse));
     }
-
-
 }
