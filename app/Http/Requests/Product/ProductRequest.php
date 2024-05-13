@@ -23,8 +23,8 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for product", request()->all());
-        
+        request_log(request()->all(), "data to validate for product");
+
         return [
             'name'        => 'required|string|max:255',
             'description' => 'required|string|max:1000',
@@ -47,7 +47,7 @@ class ProductRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from product validation", $finalResponse);
+        response_log($finalResponse, "final response from product validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 }

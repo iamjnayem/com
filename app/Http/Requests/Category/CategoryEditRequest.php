@@ -25,7 +25,7 @@ class CategoryEditRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for edit product", request()->all());
+        request_log(request()->all(), "data to validate for edit product");
         return [
             'category' => 'required|integer|exists:categories,id', 
             'status' => 'required|in:' . ActiveInActiveEnum::ACTIVE . "," . ActiveInActiveEnum::INACTIVE,
@@ -63,7 +63,7 @@ class CategoryEditRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from category edit validation", $finalResponse);
+        response_log($finalResponse, "final response from category edit validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 }

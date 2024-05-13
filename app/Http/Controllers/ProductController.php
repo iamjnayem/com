@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Exception;
@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         try
         {
-            request_log("Incoming input for create product", $request->all());
+            request_log($request->all(), "Incoming input for create product");
             $result = $this->productService->createProduct($request);
 
             if($result == null)
@@ -33,15 +33,15 @@ class ProductController extends Controller
 
             }
             
-            response_log("Final Response from createProduct ", $finalResponse);
+            response_log($finalResponse, "Final Response from createProduct ");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during creating product", $e);
+            exception_log($e, "Exception occurred during creating product");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from createProduct", $finalResponse);
+            response_log($finalResponse, "Final Response from createProduct");
             return $finalResponse;
         }
     }

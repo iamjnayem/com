@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for login", request()->all());
+        request_log(request()->all(), "data to validate for login");
 
         return [
             'email' => 'required|email|exists:users,email',
@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from login validation", $finalResponse);
+        response_log($finalResponse, "final response from login validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 }

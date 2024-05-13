@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         try
         {
-            request_log("Incoming input for Register", $request->all());
+            request_log($request->all(), "Incoming input for Register");
             $result = $this->authService->register($request);
 
             if($result == null)
@@ -37,15 +37,15 @@ class AuthController extends Controller
 
             }
             
-            response_log("Final Response from Register", $finalResponse);
+            response_log($finalResponse, "Final Response from Register");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during register", $e);
+            exception_log($e, "Exception occurred during register");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from Register", $finalResponse);
+            response_log($finalResponse, "Final Response from Register");
             return $finalResponse;
         }
     }
@@ -67,15 +67,15 @@ class AuthController extends Controller
 
             }
             
-            response_log("Final Response from Login", $finalResponse);
+            response_log($finalResponse, "Final Response from Login");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during login", $e);
+            exception_log($e, "Exception occurred during login");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from Login", $finalResponse);
+            response_log($finalResponse, "Final Response from Login");
             return $finalResponse;
         }
     }

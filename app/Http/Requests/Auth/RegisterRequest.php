@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log("data to validate for register", request()->all());
+        request_log(request()->all(), "data to validate for register");
         
         return [
             'name' => 'required|string|max:255',
@@ -45,7 +45,7 @@ class RegisterRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log("final response from register validation", $finalResponse);
+        response_log($finalResponse, "final response from register validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 

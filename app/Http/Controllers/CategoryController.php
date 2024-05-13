@@ -23,7 +23,7 @@ class CategoryController extends Controller
     {
         try
         {
-            request_log("Incoming input for create category", $categoryRequest->all());
+            request_log($categoryRequest->all(), "Incoming input for create category");
             $result = $this->categoryService->createCategory($categoryRequest);
 
             if($result == null)
@@ -36,15 +36,15 @@ class CategoryController extends Controller
 
             }
             
-            response_log("Final Response from createCategory ", $finalResponse);
+            response_log($finalResponse, "Final Response from createCategory ");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during creating category", $e);
+            exception_log($e, "Exception occurred during creating category");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from createCategory", $finalResponse);
+            response_log($finalResponse, "Final Response from createCategory");
             return $finalResponse;
         }
     }
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         try
         {
-            request_log("Incoming input for fetching category", $request->all());
+            request_log($request->all(), "Incoming input for fetching category");
 
             $result = $this->categoryService->fetchCategory($request);
 
@@ -69,15 +69,15 @@ class CategoryController extends Controller
 
             }
             
-            response_log("Final Response from category list ", $finalResponse);
+            response_log($finalResponse,"Final Response from category list ");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during fetching categories", $e);
+            exception_log($e, "Exception occurred during fetching categories");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from category list", $finalResponse);
+            response_log($finalResponse, "Final Response from category list");
             return $finalResponse;
         }
     }
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         try
         {
-            request_log("Incoming input for edit category", $categoryEditRequest->all());
+            request_log($categoryEditRequest->all(), "Incoming input for edit category");
             $result = $this->categoryService->editCategory($categoryEditRequest);
 
             if($result == null)
@@ -100,15 +100,15 @@ class CategoryController extends Controller
 
             }
             
-            response_log("Final Response from editCategory ", $finalResponse);
+            response_log($finalResponse, "Final Response from editCategory ");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during editing category", $e);
+            exception_log($e, "Exception occurred during editing category");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
-            response_log("Final Response from editCategory", $finalResponse);
+            response_log($finalResponse, "Final Response from editCategory");
             return $finalResponse;
         }
     }
@@ -118,7 +118,7 @@ class CategoryController extends Controller
     {
         try
         {
-            request_log("Incoming input for update category", $categoryUpdateRequest->all());
+            request_log($categoryUpdateRequest->all(), "Incoming input for update category");
             $result = $this->categoryService->updateCategory($categoryUpdateRequest);
 
             if($result == null)
@@ -131,12 +131,12 @@ class CategoryController extends Controller
 
             }
             
-            response_log("Final Response from updateCategory", $finalResponse);
+            response_log($finalResponse, "Final Response from updateCategory");
             return $finalResponse;
 
         }catch(Exception $e)
         {
-            exception_log("Exception occurred during update category", $e);
+            exception_log($e, "Exception occurred during update category");
             $finalResponse = error_response(null, ["Something went wrong"]);
 
             response_log("Final Response from updateCategory", $finalResponse);
