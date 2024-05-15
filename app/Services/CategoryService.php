@@ -34,14 +34,15 @@ class CategoryService
             }
 
             $finalData = [
-                'name' => $newCategory->name
+                'name'   => $newCategory->name,
+                'status' => $newCategory->status
             ];
 
             return $finalData;
 
         }catch(Exception $e)
         {
-            exception_log("Failed to create category in category service", $e);
+            exception_log($e, "Failed to create category in category service");
             return null;
         }
     }
@@ -55,7 +56,7 @@ class CategoryService
 
         }catch(Exception $e)
         {
-            exception_log("Failed to create category in category service", $e);
+            exception_log($e, "Failed to create category in category service");
             return null;
         }
     }
@@ -71,7 +72,7 @@ class CategoryService
 
         }catch(Exception $e)
         {
-            exception_log("Failed to edit category in category service", $e);
+            exception_log($e, "Failed to edit category in category service");
             return null;
         }
     }
@@ -86,7 +87,7 @@ class CategoryService
 
         }catch(Exception $e)
         {
-            exception_log("Failed to edit category in category service", $e);
+            exception_log($e, "Failed to edit category in category service");
             return null;
         }
     }

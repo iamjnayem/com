@@ -54,7 +54,7 @@ class AuthController extends Controller
     {
         try
         {
-            request_log("Incoming input for Login", $request->all());
+            request_log($request->all(), "Incoming input for Login");
             $result = $this->authService->login($request);
 
             if($result == null)

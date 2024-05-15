@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors()->all();        
+        $errors = $validator->errors()->all();      
         $finalResponse = error_response(null, $errors, 422);
         response_log($finalResponse, "final response from login validation");
         throw new HttpResponseException(response()->json($finalResponse));

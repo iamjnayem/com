@@ -26,7 +26,7 @@ class CategoryRepository
 
         }catch(Exception $e)
         {
-            exception_log("Failed to Insert Category", $e);
+            exception_log($e, "Failed to Insert Category");
             return null;
         }
     }
@@ -42,7 +42,7 @@ class CategoryRepository
 
         }catch(Exception $e)
         {
-            exception_log("Failed to fetch Category", $e);
+            exception_log($e, "Failed to fetch Category");
             return null;
         }
     }
@@ -56,7 +56,7 @@ class CategoryRepository
 
         }catch(Exception $e)
         {
-            exception_log("Failed to find Category", $e);
+            exception_log($e, "Failed to find Category");
             return null;
         }
     }
@@ -77,7 +77,7 @@ class CategoryRepository
 
         }catch(Exception $e)
         {
-            exception_log("Failed to update Category", $e);
+            exception_log($e, "Failed to update Category");
             return null;
         }
     }

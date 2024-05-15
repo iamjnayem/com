@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -31,6 +32,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function(){
         Route::put('update/{product}', [ProductController::class, 'updateProduct']);
         Route::delete('delete/{product}', [ProductController::class, 'deleteProduct']);
         
+    });
+
+    Route::group(['prefix' => 'unit'], function(){
+        Route::post('store', [UnitController::class, 'createUnit']);
+        Route::get('list' , [UnitController::class, 'list']);
+        Route::get('edit/{unit}', [UnitController::class, 'editUnit']);
+        Route::put('update/{unit}', [UnitController::class, 'updateUnit']);
+        Route::delete('delete/{unit}', [UnitController::class, 'deleteUnit']);
     });
 
 });
