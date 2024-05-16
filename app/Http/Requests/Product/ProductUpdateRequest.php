@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProductRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,14 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         request_log(request()->all(), "data to validate for product");
-
+  
         return [
-            'name'        => 'required|string|max:255',
+            'name'        => 'required|string|max:255|unique:products,name',
             'description' => 'required|string|max:1000',
             'variations'  => 'required|array',
             'stock'       => 'required|integer',
-            'category_id' => 'required|exists:category,id'
+            'category_id' => 'required|exists:categories,id',
+            'unit_id'     => 'required|exists:units,id'
         ];
     }
 

@@ -23,6 +23,8 @@ class ProductService
         try
         {
             $data = $request->validated();
+            $data['variations'] = json_encode($data['variations']);
+            $data['created_by'] = auth()->user()->id;
             
             $newProduct = $this->productRepository->createProduct($data);
 
@@ -32,18 +34,65 @@ class ProductService
             }
 
             $finalData = [
-                'name' => $newProduct->name,
+                'name'        => $newProduct->name,
                 'description' => $newProduct->description,
-                'variations' => $newProduct->variations,
-                'stock' => $newProduct->stock,
-                'category' => $newProduct->category_id
+                'stock'       => $newProduct->stock,
+                'category'    => $newProduct->category_id,
+                "unit_id"     => $newProduct->unit_id,
+                'created_by'  => $newProduct->created_by,
+                'variations'  => json_decode($newProduct->variations)
             ];
 
             return $finalData;
 
         }catch(Exception $e)
         {
-            exception_log("Failed to create product in product service", $e);
+            exception_log($e, "Failed to create product in product service");
+            return null;
+        }
+    }
+
+    public function fetchProduct($request)
+    {
+        try
+        {
+            $categories = $this->productRepository->fetchProduct($request);
+            return $categories;
+
+        }catch(Exception $e)
+        {
+            exception_log($e, "Failed to create product in product service");
+            return null;
+        }
+    }
+
+
+    public function editProduct($request)
+    {
+        try
+        {
+            $category = $this->productRepository->findOneById($request);
+
+            return $category;
+
+        }catch(Exception $e)
+        {
+            exception_log($e, "Failed to edit product in product service");
+            return null;
+        }
+    }
+
+    
+    public function updateProduct($request)
+    {
+        try
+        {
+            $category = $this->productRepository->updateProduct($request);
+            return $category;
+
+        }catch(Exception $e)
+        {
+            exception_log($e, "Failed to update product in product service");
             return null;
         }
     }

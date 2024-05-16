@@ -37,7 +37,11 @@ class CategoryRepository
 
             $perPage = isset($request->per_page) ? $request->per_page : 10;
 
-            $categories = $this->category::with('creationInfo')->filter($request->all())->orderBy('id', 'desc')->paginate($perPage);
+            $categories = $this->category::with('creationInfo')
+                        ->filter($request->all())
+                        ->orderBy('id', 'desc')
+                        ->paginate($perPage);
+
             return $categories;
 
         }catch(Exception $e)
@@ -51,7 +55,9 @@ class CategoryRepository
     {
         try{
 
-            $category = $this->category::with('creationInfo')->where('id', $request->category)->first();
+            $category = $this->category::with('creationInfo')
+                        ->where('id', $request->category)
+                        ->first();
             return $category;
 
         }catch(Exception $e)
@@ -65,14 +71,17 @@ class CategoryRepository
     public function updateCategory($request)
     {
         try{
+            
             $category = $request->category;
-
             $data = $request->all();
+
             if(isset($data['category']))
             {
                 unset($data['category']);
             }
-            $category = $this->category::where('id', $category)->update($data);
+            $category = $this->category::where('id', $category)
+                        ->update($data);
+
             return $category;
 
         }catch(Exception $e)

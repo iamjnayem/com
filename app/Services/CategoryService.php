@@ -56,7 +56,7 @@ class CategoryService
 
         }catch(Exception $e)
         {
-            exception_log($e, "Failed to create category in category service");
+            exception_log($e, "Failed to fetch category in category service");
             return null;
         }
     }
@@ -87,7 +87,7 @@ class CategoryService
 
         }catch(Exception $e)
         {
-            exception_log($e, "Failed to edit category in category service");
+            exception_log($e, "Failed to update category in category service");
             return null;
         }
     }

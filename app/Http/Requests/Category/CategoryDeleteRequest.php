@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Utilities\ActiveInActiveEnum;
 
 
-class CategoryRequest extends FormRequest
+class CategoryDeleteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,31 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log(request()->all(), "data to validate for category");
+        request_log(request()->all(), "data to validate for update category");
 
         return [
+            'category' => 'required|integer|exists:categories,id', 
             'name' => 'required|string|max:255|unique:categories,name',
             'status' => 'required|in:' . ActiveInActiveEnum::ACTIVE . "," . ActiveInActiveEnum::INACTIVE,
 
         ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'category.required' => 'The category id is not provided with route param',
+            'category.integer'  => 'The category is invalid',
+            'category.exists'   => 'The category id doesn\'t exist'
+        ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'category' => request()->route('category')
+        ]);
     }
 
 
@@ -47,7 +65,9 @@ class CategoryRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log($finalResponse, "final response from category validation");
+        response_log($finalResponse, "final response from category edit validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
+
+
 }
