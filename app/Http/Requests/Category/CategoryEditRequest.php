@@ -25,7 +25,7 @@ class CategoryEditRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log(request()->all(), "data to validate for edit product");
+        request_log(request()->all(), "data to validate for edit category");
         return [
             'category' => 'required|integer|exists:categories,id', 
             // 'status' => 'required|in:' . ActiveInActiveEnum::ACTIVE . "," . ActiveInActiveEnum::INACTIVE,

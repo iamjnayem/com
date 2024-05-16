@@ -55,7 +55,7 @@ class ProductController extends Controller
         try
         {
             request_log($request->all(), "Incoming input for fetching products");
-
+            
             $result = $this->productService->fetchProduct($request);
 
             if($result == null)

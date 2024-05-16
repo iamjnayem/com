@@ -23,17 +23,20 @@ class ProductEditRequest extends FormRequest
      */
     public function rules(): array
     {
-        request_log(request()->all(), "data to validate for product");
+        request_log(request()->all(), "data to validate for edit product");
   
         return [
-            'name'        => 'required|string|max:255|unique:products,name',
-            'description' => 'required|string|max:1000',
-            'variations'  => 'required|array',
-            'stock'       => 'required|integer',
-            'category_id' => 'required|exists:categories,id',
-            'unit_id'     => 'required|exists:units,id'
+            'product' => 'required|integer|exists:products,id', 
         ];
     }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'product' => request()->route('product')
+        ]);
+    }
+
 
 
      /**
@@ -48,7 +51,7 @@ class ProductEditRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log($finalResponse, "final response from product validation");
+        response_log($finalResponse, "final response from product edit validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 }

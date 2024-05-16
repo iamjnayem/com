@@ -18,8 +18,9 @@ return new class extends Migration
             $table->text('variations');
             $table->integer('stock');
             $table->timestamps();
-
-            $table->foreignId('category_id')->constrained();
+            
+            $table->foreignId('category_id')->constrained('categories', 'id');
+            $table->foreignId('unit_id')->constrained('units', 'id');
             $table->foreignId('created_by')->constrained('users', 'id');
         });
     }

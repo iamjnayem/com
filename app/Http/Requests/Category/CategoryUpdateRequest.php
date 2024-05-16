@@ -65,7 +65,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         $errors = $validator->errors()->all();        
         $finalResponse = error_response(null, $errors, 422);
-        response_log($finalResponse, "final response from category edit validation");
+        response_log($finalResponse, "final response from category update validation");
         throw new HttpResponseException(response()->json($finalResponse));
     }
 

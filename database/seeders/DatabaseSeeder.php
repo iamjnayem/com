@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,5 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(AdminSeeder::class);
+        $this->call(UnitSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }

@@ -35,18 +35,20 @@ class ProductRepository
     public function fetchProduct($request)
     {
         try{
-
+           
             $perPage = isset($request->per_page) ? $request->per_page : 10;
 
             $products = $this->product::with(['creationInfo', 'category'])
                         ->filter($request->all())
                         ->orderBy('id', 'desc')
                         ->paginate($perPage);
+            
                         
             return $products;
 
         }catch(Exception $e)
         {
+            dd($e->getMessage());
             exception_log($e, "Failed to fetch product");
             return null;
         }

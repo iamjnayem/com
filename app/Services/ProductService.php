@@ -54,10 +54,11 @@ class ProductService
 
     public function fetchProduct($request)
     {
+        
         try
         {
-            $categories = $this->productRepository->fetchProduct($request);
-            return $categories;
+            $products = $this->productRepository->fetchProduct($request);
+            return $products;
 
         }catch(Exception $e)
         {
@@ -71,9 +72,9 @@ class ProductService
     {
         try
         {
-            $category = $this->productRepository->findOneById($request);
+            $product = $this->productRepository->findOneById($request);
 
-            return $category;
+            return $product;
 
         }catch(Exception $e)
         {
